@@ -1,0 +1,12 @@
+version: '2'
+services:
+  dashboard-service:
+    restart: always
+    container_name: "dashboard-service"
+    build : .
+    ports:
+      - "5000:5000"
+    env_file:
+      .env
+    command : gunicorn -b :5000  --access-logfile - --error-logfile - --log-level debug --workers=2 app:app
+    network_mode: bridge

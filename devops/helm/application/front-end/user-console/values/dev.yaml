@@ -1,0 +1,21 @@
+config:
+  name: user-console
+  namespace: application
+  replicas: 2
+  
+image:
+  repository: registry.gitlab.com/report
+  tag: main
+
+imagePullSecrets: 
+  name: gitlab-registry
+service:
+  type: NodePort
+  port: 3000
+env:
+  env: staging
+  envFromSecret: env-secrets
+
+
+
+

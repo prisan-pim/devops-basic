@@ -1,0 +1,57 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: http-ingress
+  namespace: application
+spec:
+  tls:
+  - hosts:
+    - console.demo.com
+    - user.demo.com
+    - api.demo.com
+  rules:
+  - host: console.demo.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: app-console
+            port:
+              number: 80
+  - host: user.demo.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: user-console
+            port:
+              number: 3000
+  - host: api.demo.com
+    http:
+      paths:
+      - path: /api/dashboard
+        pathType: Prefix
+        backend:
+          service:
+            name: dashboard-service
+            port:
+              number: 5000
+      - path: /api/payment
+        pathType: Prefix
+        backend:
+          service:
+            name: payment-service
+            port:
+              number: 1323
+      - path: /api/report
+        pathType: Prefix
+        backend:
+          service:
+            name: report-service
+            port:
+              number: 4000
+      

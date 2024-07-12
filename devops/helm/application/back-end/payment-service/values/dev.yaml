@@ -1,0 +1,21 @@
+config:
+  name: payment-service
+  namespace: application
+  replicas: 2
+  
+image:
+  repository: registry.gitlab.com/payments
+  tag: main
+
+imagePullSecrets: 
+  name: gitlab-registry
+service:
+  type: NodePort
+  port: 1323
+env:
+  env: staging
+  envFromSecret: env-secrets
+
+
+
+

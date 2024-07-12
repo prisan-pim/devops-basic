@@ -1,0 +1,9 @@
+version: '2'
+services:
+  app-console:
+    restart: always
+    container_name: "app-console"
+    build : .
+    ports:
+      - "4200:4200"
+    network_mode: bridge

@@ -1,0 +1,7 @@
+/platform/ec2/.terraform
+/platform/ec2/.terraform.lock.hcl
+/platform/eks/.terraform
+/platform/eks/.terraform.lock.hcl
+
+
+

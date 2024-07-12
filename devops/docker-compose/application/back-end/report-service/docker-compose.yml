@@ -1,0 +1,9 @@
+version: '2'
+services:
+  report-service:
+    restart: always
+    container_name: "report-service"
+    image : report-service:latest
+    ports:
+      - "4000:4000"
+    network_mode: bridge

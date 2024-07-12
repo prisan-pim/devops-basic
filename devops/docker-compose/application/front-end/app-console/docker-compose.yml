@@ -1,0 +1,9 @@
+version: '2'
+services:
+  app-console:
+    restart: always
+    container_name: "app-console"
+    image : app-console:latest
+    ports:
+      - "8080:80"
+    network_mode: bridge

@@ -1,0 +1,59 @@
+stages:
+  - develop-build
+  - develop-deploy
+  - production-build
+
+develop-build:
+  stage: develop-build
+  image : docker:latest
+  tags: [gitlab-org-docker]
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+  script:
+      -  docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+      -  docker build --pull -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME .
+      -  docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+  only:
+    - dev
+
+develop-deploy:
+  stage: develop-deploy
+  image: ubuntu
+  tags: [gitlab-org-docker]
+  services:
+    - docker:dind
+  environment:
+    name: Development
+  before_script:
+    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
+    - eval $(ssh-agent -s)
+    - echo "$SSH_DEV_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+  script:
+    - ssh -o "StrictHostKeyChecking=no" -p22 $TARGET_DEV_USER
+    - ssh -p22 $TARGET_DEV_USER "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
+    # - ssh -p22 $TARGET_DEV_USER "docker-compose -f docker-compose.yml pull"
+    # - ssh -p22 $TARGET_DEV_USER "docker-compose -f docker-compose.yml down"
+    # - ssh -p22 $TARGET_DEV_USER "docker-compose -f docker-compose.yml up -d"
+  only:
+    - dev
+
+production-build:
+  stage: production-build
+  image: docker:latest
+  tags: [gitlab-org-docker]
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ''
+  script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  - docker build --pull -t $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG .
+  - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
+  only:
+    - tags

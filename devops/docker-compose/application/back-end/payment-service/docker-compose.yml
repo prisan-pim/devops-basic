@@ -1,0 +1,9 @@
+version: '2'
+services:
+  payment-service:
+    restart: always
+    container_name: "payment-service"
+    image : payment-service:latest
+    ports:
+      - "1323:1323"
+    network_mode: bridge

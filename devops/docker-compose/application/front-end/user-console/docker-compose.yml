@@ -1,0 +1,9 @@
+version: '2'
+services:
+  user-console:
+    restart: always
+    container_name: "user-console"
+    image: user-console:latest
+    ports:
+      - "3000:3000"
+    network_mode: bridge

@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: application
+  name: dashboard-service
+  labels:
+    app: dashboard-service
+spec:
+  selector:
+    app: dashboard-service
+  type: NodePort
+  ports:
+   - port: 5000
+     name: http
+     targetPort: 5000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dashboard-service
+  namespace: application
+  labels:
+    app: dashboard-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dashboard-service
+  template:
+    metadata:
+      labels:
+        app: dashboard-service
+    spec:
+      containers:
+      - name: dashboard-service
+        image: ""
+        imagePullPolicy: Always
+        envFrom:
+          - secretRef:
+              name: env-secrets
+      imagePullSecrets:
+      - name: gitlab-registry

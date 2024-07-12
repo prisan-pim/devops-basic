@@ -1,0 +1,21 @@
+config:
+  name: demo
+  namespace: application
+  replicas: 1
+  
+image:
+  repository: registry.gitlab.com/test
+  tag: demo
+
+imagePullSecrets: 
+  name: demo
+service:
+  type: NodePort
+  port: 5000
+env:
+  env: demo
+  envFromSecret: demo
+
+
+
+

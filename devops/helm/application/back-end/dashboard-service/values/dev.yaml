@@ -1,0 +1,21 @@
+config:
+  name: dashboard-service
+  namespace: application
+  replicas: 2
+  
+image:
+  repository: registry.gitlab.com/test
+  tag: main
+
+imagePullSecrets: 
+  name: gitlab-registry
+service:
+  type: NodePort
+  port: 5000
+env:
+  env: staging
+  envFromSecret: env-secrets
+
+
+
+

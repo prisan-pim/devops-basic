@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Values.config.name }}"
+  labels:
+    app: "{{ .Values.config.name }}"
+  namespace: {{ .Values.config.namespace }}
+spec:
+  replicas: {{ .Values.config.replicas }}
+  selector:
+    matchLabels:
+      app: "{{ .Values.config.name }}"
+  template:
+    metadata:
+      labels:
+        app: "{{ .Values.config.name }}"
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecrets.name }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: Always
+   
+          envFrom:
+          - secretRef:
+              name: {{ .Values.env.envFromSecret }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP

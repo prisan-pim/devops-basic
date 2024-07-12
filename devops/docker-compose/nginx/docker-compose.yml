@@ -1,0 +1,13 @@
+version: '3'
+services:
+  nginx-gateways:
+    container_name: nginx-gateways
+    image: nginx:latest
+    volumes:
+      - "./conf/:/etc/nginx/"
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      VIRTUAL_HOST: dev-pirunraj.com,api.dev-pirunraj.com
+    network_mode: bridge
