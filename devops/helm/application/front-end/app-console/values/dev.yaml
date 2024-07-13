@@ -1,17 +1,17 @@
 config:
   name: app-console
   namespace: application
-  replicas: 2
+  replicas: 1
   
 image:
-  repository: registry.gitlab.com/app-console
-  tag: main
+  repository: registry.gitlab.com/devops-basic5991728/front-end/app-console
+  tag: dev
 
 imagePullSecrets: 
   name: gitlab-registry
 service:
   type: NodePort
-  port: 80
+  port: 4200
 env:
   env: staging
   envFromSecret: env-secrets

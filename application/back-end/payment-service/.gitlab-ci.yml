@@ -36,9 +36,9 @@ develop-deploy:
   script:
     - ssh -o "StrictHostKeyChecking=no" -p22 $TARGET_DEV_USER
     - ssh -p22 $TARGET_DEV_USER "docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
-    # - ssh -p22 $TARGET_DEV_USER "docker-compose -f docker-compose.yml pull"
-    # - ssh -p22 $TARGET_DEV_USER "docker-compose -f docker-compose.yml down"
-    # - ssh -p22 $TARGET_DEV_USER "docker-compose -f docker-compose.yml up -d"
+    - ssh -p22 $TARGET_DEV_USER "docker-compose -f docker-compose.yml pull"
+    - ssh -p22 $TARGET_DEV_USER "docker-compose -f docker-compose.yml down"
+    - ssh -p22 $TARGET_DEV_USER "docker-compose -f docker-compose.yml up -d"
   only:
     - dev
 

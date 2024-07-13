@@ -2,6 +2,7 @@
 /platform/ec2/.terraform.lock.hcl
 /platform/eks/.terraform
 /platform/eks/.terraform.lock.hcl
-
+secret.yaml
+docker-registry.yaml
 
 

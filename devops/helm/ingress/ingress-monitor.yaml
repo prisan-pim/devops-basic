@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: ingress-monitoring
+  namespace:  monitoring
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: grafana.kasreport.online
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name:  prometheus-operator-grafana
+            port:
+              number: 80
+ 

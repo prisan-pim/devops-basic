@@ -1,11 +1,11 @@
 config:
   name: user-console
   namespace: application
-  replicas: 2
+  replicas: 1
   
 image:
-  repository: registry.gitlab.com/report
-  tag: main
+  repository: registry.gitlab.com/devops-basic5991728/front-end/user-console
+  tag: dev
 
 imagePullSecrets: 
   name: gitlab-registry

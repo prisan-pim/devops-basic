@@ -4,8 +4,8 @@ config:
   replicas: 2
   
 image:
-  repository: registry.gitlab.com/payments
-  tag: main
+  repository: registry.gitlab.com/devops-basic5991728/back-end/payment-service
+  tag: dev
 
 imagePullSecrets: 
   name: gitlab-registry

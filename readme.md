@@ -269,6 +269,16 @@ git clone
 docker-compose up -d
 ```
 
+สร้าง ssh-key สำหรับ server connection กับ gitlab
+```
+ssh-keygen
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+copy id_rsa ไปเพิ่มใน env ของ cicd gitlab
+
+SSH_DEV_KEY เอามาจาก id_rsa ของ server
+TARGET_DEV_USER เอามาจากการเข้า server ด้วย ssh ex: ubuntu@1.1.1.1
+```
+
 ## สร้าง EKS หรือ GKE
 
 ตั้งค่าให้ local config kubernetes ในเครื่อง
@@ -416,11 +426,11 @@ helm template user-console -f values/default.yaml -f values/dev.yaml .
 
 ติดตั้ง application ด้วย helm
 ```
-helm install dashboard-service dashboard-service -n application -f values/dev.yaml -f values/default.yaml
-helm install payment-service payment-service -n application -f values/dev.yaml -f values/default.yaml
-helm install report-service report-service -n application -f values/dev.yaml -f values/default.yaml
-helm install app-console  app-console  -n application -f values/dev.yaml -f values/default.yaml
-helm install user-console user-console -n application -f values/dev.yaml -f values/default.yaml
+helm install dashboard-service -f values/dev.yaml  .
+helm install payment-service -f values/dev.yaml  .
+helm install report-service -f values/dev.yaml .
+helm install app-console  -f values/dev.yaml  .
+helm install user-console -f values/dev.yaml  .
 ```
 
 ลบการติดตั้ง application ด้วย helm
@@ -431,3 +441,77 @@ helm uninstall report-service -n application
 helm uninstall app-console -n application
 helm uninstall user-console -n application
 ```
+# บทที่ 4: Introduction To Monitor System
+## Deploy the Metrics Server
+```
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+```
+
+## check pods ของ metrics-server
+```
+kubectl get deployment metrics-server -n kube-system
+```
+
+## ติดตั้ง prometheus และ grafana
+```
+kubectl create namespace monitoring
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+helm install prometheus-operator prometheus-community/kube-prometheus-stack -n monitoring
+```
+
+```
+user: admin
+pass : prom-operator
+```
+อ้างอิง https://prometheus-community.github.io/helm-charts/
+
+## ติดตั้ง grafana loki สำหรับดู Logging View
+```
+helm repo add grafana https://grafana.github.io/helm-charts
+helm install loki grafana/loki-stack -n monitoring
+```
+อ้างอิง https://grafana.com/docs/loki/latest/setup/install/helm/install-monolithic/
+
+## Host สำหรับใช้เชื่อมต่อ
+```
+http://loki.monitoring.svc.cluster.local:3100
+```
+
+
+# บทที่ 5: Introduction To LoadTest System
+##  การทดสอบระบบด้วย Locust Load Testing
+```
+cd platform/loadtest/docker-locust
+docker-compose up -d
+```
+อ้างอิง https://docs.locust.io/en/2.0.0/running-locust-docker.html
+##  การทดสอบระบบด้วย k6 Load Testing
+```
+cd platform/loadtest/docker-k6
+./run.sh
+```
+อ้างอิง https://github.com/luketn/docker-k6-grafana-influxdb
+
+# บทที่ 6: infrastructure Automation (Very special)
+ทดสอบสร้าง ec2 ด้วย terraform
+```
+terraform init
+terraform plan
+terraform apply
+
+```
+ทดสอบสร้าง eks ด้วย terraform
+```
+terraform init
+terraform plan
+terraform apply
+```
+ทดสอบสร้าง ec2 ด้วย gitlab
+```
+git add .
+git commit -am "config ec2"
+git push origin main
+```
+
+อ้างอิง https://medium.com/geekculture/how-to-run-terraform-script-using-gitlab-ci-cd-b6f448ab0232
