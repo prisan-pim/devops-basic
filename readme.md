@@ -412,6 +412,16 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 kubectl create namespace application (for deploy application on namespace)
 
 ```
+base64 to string
+```
+echo VEEtN243eU...... | base64 --decode
+```
+
+username password สำหรับ argocd
+```
+user : admin
+pass : prom-operator
+```
 
 ## การใช้ Helm
 
@@ -460,10 +470,6 @@ helm repo update
 helm install prometheus-operator prometheus-community/kube-prometheus-stack -n monitoring
 ```
 
-```
-user: admin
-pass : prom-operator
-```
 อ้างอิง https://prometheus-community.github.io/helm-charts/
 
 ## ติดตั้ง grafana loki สำหรับดู Logging View

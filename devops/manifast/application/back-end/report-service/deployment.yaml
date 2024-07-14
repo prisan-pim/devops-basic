@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: report-service
-        image: ""
+        image: ""registry.gitlab.com/devops-basic5991728/back-end/report-service:dev""
         imagePullPolicy: Always
         envFrom:
           - secretRef:

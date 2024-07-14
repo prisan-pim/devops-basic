@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: user-console
-        image: ""
+        image: "registry.gitlab.com/devops-basic5991728/front-end/user-console:dev"
         imagePullPolicy: Always
         # env:
         #   - name: PORT
