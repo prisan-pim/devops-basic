@@ -4,7 +4,7 @@ config:
   replicas: 2
   
 image:
-  repository: registry.gitlab.com/devops-basic5991728/back-end/payment-service
+  repository: registry.gitlab.com/project_name/back-end/payment-service
   tag: dev
 
 imagePullSecrets: 

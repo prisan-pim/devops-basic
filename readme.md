@@ -287,6 +287,7 @@ TARGET_DEV_USER เอามาจากการเข้า server ด้ว�
 ```
 pip install awscli
 ```
+ถ้าลงไม่ผ่านสามารถติดตั้งที่นี้ได้ [https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
 สร้าง file กรณี ไม่เคยใช้เลย
 ```
@@ -301,7 +302,9 @@ https://kubernetes.io/docs/tasks/tools/
 
 เชื่อมต่อ aws local ไปที่ EKS
 ```
-aws eks update-kubeconfig --name eks-training --region ap-southeast-1 --profile devops
+aws eks update-kubeconfig --name eks-training --region ap-southeast-1 
+
+ถ้ากรณ๊เรามี หลายๆ profile สามารถเพิ่ม --profile devops เข้าไปได้
 ```
 ติดตั้ง Helm 
 ```

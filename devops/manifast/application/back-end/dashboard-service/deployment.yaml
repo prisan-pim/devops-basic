@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: dashboard-service
-        image: "registry.gitlab.com/devops-basic5991728/back-end/dashboard-service:dev"
+        image: "registry.gitlab.com/project_name/back-end/dashboard-service:dev"
         imagePullPolicy: Always
         envFrom:
           - secretRef:

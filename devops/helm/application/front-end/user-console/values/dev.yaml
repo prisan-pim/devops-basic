@@ -4,7 +4,7 @@ config:
   replicas: 1
   
 image:
-  repository: registry.gitlab.com/devops-basic5991728/front-end/user-console
+  repository: registry.gitlab.com/project_name/front-end/user-console
   tag: dev
 
 imagePullSecrets: 
