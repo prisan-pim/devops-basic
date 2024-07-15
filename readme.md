@@ -282,8 +282,30 @@ TARGET_DEV_USER เอามาจากการเข้า server ด้ว�
 ## สร้าง EKS หรือ GKE
 
 ตั้งค่าให้ local config kubernetes ในเครื่อง
+
+ติดตั้ง awscli
+```
+pip install awscli
+```
+
+สร้าง file กรณี ไม่เคยใช้เลย
+```
+touch ~/.aws/config
+touch ~/.aws/credentials
+```
+
+install kubectl
+```
+https://kubernetes.io/docs/tasks/tools/
+```
+
+เชื่อมต่อ aws local ไปที่ EKS
 ```
 aws eks update-kubeconfig --name eks-training --region ap-southeast-1 --profile devops
+```
+ติดตั้ง Helm 
+```
+https://helm.sh/docs/intro/install/
 ```
 ติดตั้ง ingress สำหรับ kubernetes
 ```
@@ -412,18 +434,14 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 kubectl create namespace application (for deploy application on namespace)
 
 ```
-base64 to string
-```
-echo VEEtN243eU...... | base64 --decode
-```
-
-username password สำหรับ argocd
+เย้าระบบ  [http://localhost:8080](http://localhost:8080)
 ```
 user : admin
-pass : prom-operator
+password : ให้ใช้คำสั่งนี้ในการดึง kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}"| base64 -d;echo
 ```
 
-## การใช้ Helm
+
+## การใช้ Helm สำหรับการ Deploy ด้วยตัวเองและใช้สำหรับ ArgoCD
 
 ทดสอบสร้าง template สำหรับ helm
 ```
@@ -452,7 +470,9 @@ helm uninstall app-console -n application
 helm uninstall user-console -n application
 ```
 # บทที่ 4: Introduction To Monitor System
-## Deploy the Metrics Server
+
+กรณีใช้ Observability กับ AWS 
+## Deploy the Metrics Server 
 ```
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 ```
@@ -468,6 +488,16 @@ kubectl create namespace monitoring
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
 helm install prometheus-operator prometheus-community/kube-prometheus-stack -n monitoring
+```
+base64 to string
+```
+echo VEEtN243eU...... | base64 --decode
+```
+
+username password สำหรับ grafana
+```
+user : admin
+pass : prom-operator
 ```
 
 อ้างอิง https://prometheus-community.github.io/helm-charts/
@@ -521,3 +551,4 @@ git push origin main
 ```
 
 อ้างอิง https://medium.com/geekculture/how-to-run-terraform-script-using-gitlab-ci-cd-b6f448ab0232
+
