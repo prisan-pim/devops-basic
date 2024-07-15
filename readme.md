@@ -466,11 +466,11 @@ helm install user-console -f values/dev.yaml  .
 
 ลบการติดตั้ง application ด้วย helm
 ```
-helm uninstall dashboard-service -n application 
-helm uninstall payment-service -n application
-helm uninstall report-service -n application
-helm uninstall app-console -n application
-helm uninstall user-console -n application
+helm uninstall dashboard-service 
+helm uninstall payment-service
+helm uninstall report-service
+helm uninstall app-console
+helm uninstall user-console
 ```
 # บทที่ 4: Introduction To Monitor System
 
@@ -535,6 +535,8 @@ cd platform/loadtest/docker-k6
 # บทที่ 6: infrastructure Automation (Very special)
 ทดสอบสร้าง ec2 ด้วย terraform
 ```
+cd platform/ec2
+
 terraform init
 terraform plan
 terraform apply
@@ -542,12 +544,15 @@ terraform apply
 ```
 ทดสอบสร้าง eks ด้วย terraform
 ```
+cd platform/eks
+
 terraform init
 terraform plan
 terraform apply
 ```
 ทดสอบสร้าง ec2 ด้วย gitlab
 ```
+cd platform/infra-automation
 git add .
 git commit -am "config ec2"
 git push origin main
