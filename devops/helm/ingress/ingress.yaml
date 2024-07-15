@@ -9,7 +9,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: console-kube.kasreport.online
+  - host: console-kube.demo.com
     http:
       paths:
       - path: /
@@ -19,7 +19,7 @@ spec:
             name: app-console
             port:
               number: 4200
-  - host: user-kube.kasreport.online
+  - host: user-kube.demo.com
     http:
       paths:
       - path: /
@@ -29,7 +29,7 @@ spec:
             name: user-console
             port:
               number: 3000
-  - host: api-kube.kasreport.online
+  - host: api-kube.demo.com
     http:
       paths:
       - path: /api/dashboard

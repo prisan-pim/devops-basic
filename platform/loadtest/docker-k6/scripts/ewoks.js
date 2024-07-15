@@ -20,7 +20,7 @@ export let options = {
 };
 
 export default function () {
-  const response = http.get("https://api-kube.kasreport.online/api/report", {headers: {Accepts: "application/json"}});
+  const response = http.get("https://api-kube.demo.com/api/report", {headers: {Accepts: "application/json"}});
   check(response, { "status is 200": (r) => r.status === 200 });
   sleep(.300);
 };

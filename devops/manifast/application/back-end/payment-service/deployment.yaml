@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: payment-service
-        image: "registry.gitlab.com/devops-basic5991728/back-end/payment-service:dev"
+        image: "registry.gitlab.com/project_name/back-end/payment-service:dev"
         imagePullPolicy: Always
         envFrom:
           - secretRef:
