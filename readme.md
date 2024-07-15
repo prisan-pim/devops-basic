@@ -1,6 +1,12 @@
 
 # Getting Started with DevOps
+
+![image description](/image/1.png)
+
+
 # บทที่ 1 : Introduction to Docker, Docker-compose and mircoservice
+
+![image description](/image/4.png)
 
 ## สร้าง Application สำหรับ Frontend
 ทำการลง nodejs version 20 ขึ้นไป
@@ -228,6 +234,7 @@ production-build:
   only:
     - tags
 ```
+![image description](/image/5.png)
 
 # บทที่ 3: Introduction To Deploy Application
 
@@ -474,6 +481,8 @@ helm uninstall user-console
 ```
 # บทที่ 4: Introduction To Monitor System
 
+![image description](/image/2.png)
+
 กรณีใช้ Observability กับ AWS 
 ## Deploy the Metrics Server 
 ```
@@ -505,7 +514,7 @@ pass : prom-operator
 
 อ้างอิง https://prometheus-community.github.io/helm-charts/
 
-## ติดตั้ง grafana loki สำหรับดู Logging View
+## ติดตั้ง grafana loki สำหรับดู logging view
 ```
 helm repo add grafana https://grafana.github.io/helm-charts
 helm install loki grafana/loki-stack -n monitoring
@@ -519,7 +528,10 @@ http://loki.monitoring.svc.cluster.local:3100
 
 
 # บทที่ 5: Introduction To LoadTest System
-##  การทดสอบระบบด้วย Locust Load Testing
+
+![image description](/image/1.png)
+
+##  การทดสอบระบบด้วย locust load testing
 ```
 cd platform/loadtest/docker-locust
 docker-compose up -d
@@ -550,13 +562,14 @@ terraform init
 terraform plan
 terraform apply
 ```
-ทดสอบสร้าง ec2 ด้วย gitlab
+![image description](/image/6.png)
+
+ทดสอบสร้าง ec2 ด้วย gitlab แบบง่ายๆ
 ```
 cd platform/infra-automation
 git add .
 git commit -am "config ec2"
 git push origin main
 ```
-
-อ้างอิง https://medium.com/geekculture/how-to-run-terraform-script-using-gitlab-ci-cd-b6f448ab0232
+![image description](/image/3.png)
 
